@@ -67,48 +67,50 @@ main.add(windDir);
 main.show();
 
 // Contruct the request
-var checkWind = ajax(
-  {
-    url: 'http://iphone.kiteboarding-club.com/weatherjson.php',
-    type: 'json'
-  },
-  function(data) {
+var checkWind = function() { 
+    ajax(
+        {
+            url: 'http://iphone.kiteboarding-club.com/weatherjson.php',
+            type: 'json'
+        },
+        function(data) {
+            // Extract data
+            var time = data.time;
+            var date = data.date;
+            var wind = data.wind;
+            var gusts = data.gusts;
+            var temp = data.temperature;
+            var direction = data.direction;
 
-    // Extract data
-    var time = data.time;
-    var date = data.date;
-    var wind = data.wind;
-    var gusts = data.gusts;
-    var temp = data.temperature;
-    var direction = data.direction;
+            // Clean date
+            var dlength = date.length;
+            var trim = dlength - 3;
+            var cleandate = date.substring(0, trim);
 
-    // Clean date
-    var dlength = date.length;
-    var trim = dlength - 3;
-    var cleandate = date.substring(0, trim);
-      
-    // Show to user
-    if ( wind !== gusts ) {
-        windSpeed.text(wind + '-' + gusts);
-    } else {
-        windSpeed.text(wind);
-    }
-    currentTime.text(time);
-    currentDate.text(cleandate);
-    currentTemp.text(temp + 'C');
-    windDir.text(direction);
-  },
-  function(error) {
-    // Failure!
-    main.subtitle('Connection error');
-  }
-    
-);
+            // Show to user
+            if ( wind !== gusts ) {
+                windSpeed.text(wind + '-' + gusts);
+            } else {
+                windSpeed.text(wind);
+            }
+            currentTime.text(time);
+            currentDate.text(cleandate);
+            currentTemp.text(temp + 'C');
+            windDir.text(direction);
+        },
+        function(error) {
+            // Failure!
+            windDesc.text('Connection error');
+        }
+
+    );
+};
 
 // Set 5 minute interval
 var interval = 1000 * 60 * 5;
 
 // Make the requests
+checkWind();
 setInterval(checkWind, interval);
 
 
