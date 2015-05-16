@@ -20,7 +20,7 @@ var currentDate = new UI.Text({
     position: new Vector2(75, 2),
     size: new Vector2(62, 24),
     font: 'gothic-18-bold',
-    text: '9 Nov 87',
+    text: '9 Nov',
     textAlign: 'right'
 });
 
@@ -28,7 +28,7 @@ var windSpeed = new UI.Text({
     position: new Vector2(0, 50),
     size: new Vector2(144, 30),
     font: 'RESOURCE_ID_BITHAM_42_MEDIUM_NUMBERS',
-    text: '8',
+    text: '0',
     textAlign: 'center'
 });
 
@@ -66,13 +66,10 @@ main.add(windDir);
 // Display the Card
 main.show();
 
-// Construct URL
-var URL = 'http://iphone.kiteboarding-club.com/weatherjson.php';
-
-// Make the request
-ajax(
+// Contruct the request
+var checkWind = ajax(
   {
-    url: URL,
+    url: 'http://iphone.kiteboarding-club.com/weatherjson.php',
     type: 'json'
   },
   function(data) {
@@ -108,11 +105,14 @@ ajax(
     
 );
 
+// Set 5 minute interval
+var interval = 1000 * 60 * 5;
+
+// Make the requests
+setInterval(checkWind, interval);
 
 
-
-
-//------- old --------
+/*------- old --------
 
 main.on('click', 'up', function(e) {
   var menu = new UI.Menu({
@@ -154,3 +154,4 @@ main.on('click', 'down', function(e) {
   card.body('The simplest window type in Pebble.js.');
   card.show();
 });
+*/
