@@ -28,6 +28,11 @@
                 "file": "fonts/UbuntuMono-Regular.ttf",
                 "name": "MONO_FONT_14",
                 "type": "font"
+            },
+            {
+                "file": "images/windwatchscreen.png",
+                "name": "IMAGES_WINDWATCHSCREEN_PNG",
+                "type": "png"
             }
         ]
     },
